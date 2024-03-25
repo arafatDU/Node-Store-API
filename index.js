@@ -1,6 +1,10 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import connectDB from './db/connect.js';
+import productRoutes from './routes/productRoutes.js';
+import dotenv from 'dotenv';
+import notFoundMiddleware from './middleware/not-found.js';
+import errorMiddleware from './middleware/error-handler.js';
 dotenv.config();
 
 const app = express();
@@ -11,6 +15,14 @@ const mongodb_connect = process.env.MONGO_URI;
 app.use(express.json());
 
 
+// Routes
+app.use('/api/products', productRoutes);
+
+
+app.use(notFoundMiddleware);
+app.use(errorMiddleware);
+
+
 app.get('/', (req, res) => {
   res.send('<h1>Store Manager API</h1>');
 });
@@ -18,13 +30,13 @@ app.get('/', (req, res) => {
 
 
 
-mongoose.connect(mongodb_connect)
-  .then(() => {
-    console.log('Connected to MongoDB');
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-  })
-  .catch(() => {
-    console.log("Connection failed!");
-  });
+const start = async () => {
+  try {
+    await connectDB(mongodb_connect);
+    app.listen(PORT, console.log(`Server is listening on port ${PORT}`));
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+start();
