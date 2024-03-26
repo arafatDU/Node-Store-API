@@ -1,10 +1,10 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import connectDB from './db/connect.js';
-import productRoutes from './routes/productRoutes.js';
-import dotenv from 'dotenv';
-import notFoundMiddleware from './middleware/not-found.js';
-import errorMiddleware from './middleware/error-handler.js';
+const express = require('express');
+const connectDB = require('./db/connect');
+const productRoutes = require('./routes/productRoutes.js');
+const dotenv = require('dotenv');
+const notFoundMiddleware = require('./middleware/not-found.js');
+const errorMiddleware = require('./middleware/error-handler.js');
+require('express-async-errors');
 dotenv.config();
 
 const app = express();

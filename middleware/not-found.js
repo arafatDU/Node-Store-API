@@ -1,3 +1,3 @@
 const notFound = (req, res) => res.status(404).send("Route does not exits.");
 
-export default notFound;
+module.exports = notFound;

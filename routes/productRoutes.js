@@ -1,10 +1,12 @@
-import express from 'express';
-import { getAllProducts } from '../controllers/productController.js';
+const express = require('express');
+const { getAllProducts, getAllProductsStatic } = require('../controllers/productController.js');
+
 const router = express.Router();
 
 router.route('/').get(getAllProducts);
+router.route('/static').get(getAllProductsStatic);
 
 
-export default router;
+module.exports = router;
 
 

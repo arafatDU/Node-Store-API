@@ -1,7 +1,6 @@
 const errorHandlerMiddleware = (err, req, res, next) => {
-
-  return res.status(500).json({ message: err });
+  console.log("From error handler middleware", err);
+  return res.status(500).json({ message: err});
 }
 
-
-export default errorHandlerMiddleware;
+module.exports = errorHandlerMiddleware;
